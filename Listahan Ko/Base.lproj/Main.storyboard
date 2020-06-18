@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--ListahanVC-->
+        <!--Listahan-->
         <scene sceneID="xdz-Lz-VGc">
             <objects>
                 <tableViewController id="Mvp-6T-yCe" customClass="ListahanVC" customModule="Listahan_Ko" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,7 +29,13 @@
                             <outlet property="delegate" destination="Mvp-6T-yCe" id="JTM-h7-LJO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="A2I-Fh-KXG"/>
+                    <navigationItem key="navigationItem" title="Listahan" id="A2I-Fh-KXG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="d20-7a-cQT">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Mvp-6T-yCe" id="S8K-zn-wJM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6H1-Nj-nuj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -40,8 +46,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V2U-zN-hMt" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NRh-86-jg3">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="NRh-86-jg3">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>

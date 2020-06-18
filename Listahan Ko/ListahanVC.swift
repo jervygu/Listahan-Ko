@@ -11,7 +11,7 @@ import UIKit
 class ListahanVC: UITableViewController {
     
     
-    let itemArray = [
+    var itemArray = [
         "Find Her",
         "Cook Noodles",
         "Play Pubgm",
@@ -22,8 +22,6 @@ class ListahanVC: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Listahan"
         
     }
     
@@ -61,6 +59,36 @@ class ListahanVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //MARK: - Add new items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+//            will happen once the user clicks Add item button on UIAlert
+            print("Success!")
+            print(textField.text!)
+            
+            //append the added item by user
+            self.itemArray.append(textField.text!)
+            // reload the data from array to screen
+            self.tableView.reloadData()
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Type something here.."
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+        
+    }
     
     
     
