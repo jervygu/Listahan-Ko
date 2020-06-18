@@ -18,10 +18,15 @@ class ListahanVC: UITableViewController {
         "Sleep!"
     ]
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let items = defaults.array(forKey: "ListahanArray") as? [String] {
+            itemArray = items
+        }
         
     }
     
@@ -74,6 +79,9 @@ class ListahanVC: UITableViewController {
             
             //append the added item by user
             self.itemArray.append(textField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "ListahanArray")
+            
             // reload the data from array to screen
             self.tableView.reloadData()
             
