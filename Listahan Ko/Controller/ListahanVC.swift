@@ -10,13 +10,15 @@ import UIKit
 
 class ListahanVC: UITableViewController {
     
+    // array of Dummy items
+//    var itemArray = [
+//        "Find Her",
+//        "Cook Noodles",
+//        "Play Pubgm",
+//        "Sleep!"
+//    ]
     
-    var itemArray = [
-        "Find Her",
-        "Cook Noodles",
-        "Play Pubgm",
-        "Sleep!"
-    ]
+    var itemArray = [Item]()
     
     let defaults = UserDefaults.standard
     
@@ -24,12 +26,24 @@ class ListahanVC: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if let items = defaults.array(forKey: "ListahanArray") as? [String] {
+        let newItem = Item()
+        newItem.title = "Find Her"
+        itemArray.append(newItem)
+        
+        let newItem2 = Item()
+        newItem2.title = "Find Cat"
+        itemArray.append(newItem2)
+        
+        let newItem3 = Item()
+        newItem3.title = "Find natasha"
+        itemArray.append(newItem3)
+        
+        // userDefaults
+        if let items = defaults.array(forKey: "ListahanArray") as? [Item] {
             itemArray = items
         }
         
     }
-    
     
     
     //MARK: - TableView DataSource Methods
@@ -42,8 +56,14 @@ class ListahanVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "listahanCell", for: indexPath)
-        cell.textLabel?.text = itemArray[indexPath.row]
+
+        let item = itemArray[indexPath.row]
         
+        cell.textLabel?.text = item.title
+        
+        // ternary operator, shorthand for above statements
+        // value = condition ? valueIfTrue : valueIfFalse
+        cell.accessoryType = item.done ? .checkmark : .none
         
         
         return cell
@@ -53,13 +73,14 @@ class ListahanVC: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(itemArray[indexPath.row])
         
-        if  tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        // for item in array to toggle true or false when tapped/selected by user
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        
+        print("\(itemArray[indexPath.row].title) - \(itemArray[indexPath.row].done)")
+        
+        // to reload data in table when user tapped a cell
+        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -77,8 +98,12 @@ class ListahanVC: UITableViewController {
             print("Success!")
             print(textField.text!)
             
+            let newItem = Item()
+            newItem.title = textField.text!
+            
             //append the added item by user
-            self.itemArray.append(textField.text!)
+//            self.itemArray.append(textField.text!)
+            self.itemArray.append(newItem)
             
             self.defaults.set(self.itemArray, forKey: "ListahanArray")
             
@@ -97,12 +122,5 @@ class ListahanVC: UITableViewController {
         
         
     }
-    
-    
-    
-    
-    
-    
-    
 }
 
