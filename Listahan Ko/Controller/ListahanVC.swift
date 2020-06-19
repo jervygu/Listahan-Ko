@@ -18,30 +18,41 @@ class ListahanVC: UITableViewController {
 //        "Sleep!"
 //    ]
     
+    
     var itemArray = [Item]()
     
-    let defaults = UserDefaults.standard
+    // replaced by custom plist
+//    let defaults = UserDefaults.standard
+    
+
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Listahan.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let newItem = Item()
-        newItem.title = "Find Her"
-        itemArray.append(newItem)
+        print(dataFilePath)
         
-        let newItem2 = Item()
-        newItem2.title = "Find Cat"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "Find natasha"
-        itemArray.append(newItem3)
+        // hardcoded item in array
+//        let newItem = Item()
+//        newItem.title = "Find Her"
+//        itemArray.append(newItem)
+//
+//        let newItem2 = Item()
+//        newItem2.title = "Find Cat"
+//        itemArray.append(newItem2)
+//
+//        let newItem3 = Item()
+//        newItem3.title = "Find natasha"
+//        itemArray.append(newItem3)
         
         // userDefaults
-        if let items = defaults.array(forKey: "ListahanArray") as? [Item] {
-            itemArray = items
-        }
+//        if let items = defaults.array(forKey: "ListahanArray") as? [Item] {
+//            itemArray = items
+//        }
+        
+        // replaced the userDefaults method
+        loadItems()
         
     }
     
@@ -74,13 +85,17 @@ class ListahanVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // for item in array to toggle true or false when tapped/selected by user
+        // for item in array to toggle true or false the done property when tapped/selected by user
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         print("\(itemArray[indexPath.row].title) - \(itemArray[indexPath.row].done)")
         
+//        save to Listahan.plist
+        saveItems()
+        
         // to reload data in table when user tapped a cell
-        tableView.reloadData()
+        // already inside the saveItem() method
+//        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -105,10 +120,25 @@ class ListahanVC: UITableViewController {
 //            self.itemArray.append(textField.text!)
             self.itemArray.append(newItem)
             
-            self.defaults.set(self.itemArray, forKey: "ListahanArray")
+            // save to Listahan.plist
+            self.saveItems()
             
-            // reload the data from array to screen
-            self.tableView.reloadData()
+            // delete for removal of custom plist
+//            self.defaults.set(self.itemArray, forKey: "ListahanArray")
+            
+            
+            // moved to saveItem() method
+//            let encoder = PropertyListEncoder()
+//
+//            do {
+//                let data = try encoder.encode(self.itemArray)
+//                try data.write(to: self.dataFilePath!)
+//            } catch {
+//                print("Error encoding item array, \(error)")
+//            }
+//
+//            // reload the data from array to screen
+//            self.tableView.reloadData()
             
         }
         
@@ -120,7 +150,31 @@ class ListahanVC: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
         
+    }
+    
+    func saveItems() {
+        let encoder = PropertyListEncoder()
         
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array, \(error)")
+        }
+        
+        // reload the data from array to screen
+        self.tableView.reloadData()
+    }
+    
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error decoding item array, \(error)")
+            }
+        }
     }
 }
 
