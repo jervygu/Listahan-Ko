@@ -7,52 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class ListahanVC: UITableViewController {
     
-    // array of Dummy items
-//    var itemArray = [
-//        "Find Her",
-//        "Cook Noodles",
-//        "Play Pubgm",
-//        "Sleep!"
-//    ]
-    
-    
     var itemArray = [Item]()
     
-    // replaced by custom plist
-//    let defaults = UserDefaults.standard
-    
 
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Listahan.plist")
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        print(dataFilePath)
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+//        searchBar.delegate = self
         
-        // hardcoded item in array
-//        let newItem = Item()
-//        newItem.title = "Find Her"
-//        itemArray.append(newItem)
-//
-//        let newItem2 = Item()
-//        newItem2.title = "Find Cat"
-//        itemArray.append(newItem2)
-//
-//        let newItem3 = Item()
-//        newItem3.title = "Find natasha"
-//        itemArray.append(newItem3)
-        
-        // userDefaults
-//        if let items = defaults.array(forKey: "ListahanArray") as? [Item] {
-//            itemArray = items
-//        }
-        
-        // replaced the userDefaults method
         loadItems()
+        
         
     }
     
@@ -84,18 +56,21 @@ class ListahanVC: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // for edit
+//        itemArray[indexPath.row].setValue("Completed!", forKey: "title")
+        
         
         // for item in array to toggle true or false the done property when tapped/selected by user
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        print("\(itemArray[indexPath.row].title) - \(itemArray[indexPath.row].done)")
+        print("\(String(describing: itemArray[indexPath.row].title!)) - \(itemArray[indexPath.row].done)")
         
-//        save to Listahan.plist
+        
+        // delete item
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+        
         saveItems()
-        
-        // to reload data in table when user tapped a cell
-        // already inside the saveItem() method
-//        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -113,33 +88,13 @@ class ListahanVC: UITableViewController {
             print("Success!")
             print(textField.text!)
             
-            let newItem = Item()
+            let newItem = Item(context: self.context)
             newItem.title = textField.text!
+            newItem.done = false
             
-            //append the added item by user
-//            self.itemArray.append(textField.text!)
             self.itemArray.append(newItem)
             
-            // save to Listahan.plist
             self.saveItems()
-            
-            // delete for removal of custom plist
-//            self.defaults.set(self.itemArray, forKey: "ListahanArray")
-            
-            
-            // moved to saveItem() method
-//            let encoder = PropertyListEncoder()
-//
-//            do {
-//                let data = try encoder.encode(self.itemArray)
-//                try data.write(to: self.dataFilePath!)
-//            } catch {
-//                print("Error encoding item array, \(error)")
-//            }
-//
-//            // reload the data from array to screen
-//            self.tableView.reloadData()
-            
         }
         
         alert.addTextField { (alertTextField) in
@@ -152,29 +107,59 @@ class ListahanVC: UITableViewController {
         
     }
     
-    func saveItems() {
-        let encoder = PropertyListEncoder()
-        
+    func saveItems() {        
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
+            try context.save()
         } catch {
-            print("Error encoding item array, \(error)")
+            print("Error saving context \(error)")
         }
         
         // reload the data from array to screen
         self.tableView.reloadData()
     }
     
-    func loadItems() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            do {
-                itemArray = try decoder.decode([Item].self, from: data)
-            } catch {
-                print("Error decoding item array, \(error)")
+    
+//  with - external ... request - internal param ... = Item.fetchRequest() - default value
+    
+    
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        do {
+            itemArray =  try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
+    
+}
+
+//MARK: - Search Bar Methods / Delegate Methods
+
+extension ListahanVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // query items
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+//        request.predicate = predicate
+
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+//        request.sortDescriptors = [sortDescriptor]
+
+        loadItems(with: request)
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+
+            DispatchQueue.main.async {
+                // go to original state before the searchBar activated
+                searchBar.resignFirstResponder()
             }
         }
     }
+    
 }
+
+
 

@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E1C639524A198B800565588 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C639324A198B800565588 /* DataModel.xcdatamodeld */; };
 		9E7AAB4C249B250F007F4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7AAB4B249B250F007F4CE3 /* AppDelegate.swift */; };
 		9E7AAB4E249B250F007F4CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7AAB4D249B250F007F4CE3 /* SceneDelegate.swift */; };
 		9E7AAB50249B250F007F4CE3 /* ListahanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7AAB4F249B250F007F4CE3 /* ListahanVC.swift */; };
 		9E7AAB53249B250F007F4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB51249B250F007F4CE3 /* Main.storyboard */; };
 		9E7AAB55249B250F007F4CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB54249B250F007F4CE3 /* Assets.xcassets */; };
 		9E7AAB58249B250F007F4CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB56249B250F007F4CE3 /* LaunchScreen.storyboard */; };
-		9EA53C7A249CA1580030EC1C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA53C79249CA1580030EC1C /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E1C639424A198B800565588 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		9E7AAB48249B250F007F4CE3 /* Listahan Ko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Listahan Ko.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7AAB4B249B250F007F4CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E7AAB4D249B250F007F4CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		9E7AAB54249B250F007F4CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E7AAB57249B250F007F4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E7AAB59249B250F007F4CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9EA53C79249CA1580030EC1C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 		9EA53C7C249CA2460030EC1C /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				9EA53C79249CA1580030EC1C /* Item.swift */,
+				9E1C639324A198B800565588 /* DataModel.xcdatamodeld */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -174,7 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E7AAB50249B250F007F4CE3 /* ListahanVC.swift in Sources */,
-				9EA53C7A249CA1580030EC1C /* Item.swift in Sources */,
+				9E1C639524A198B800565588 /* DataModel.xcdatamodeld in Sources */,
 				9E7AAB4C249B250F007F4CE3 /* AppDelegate.swift in Sources */,
 				9E7AAB4E249B250F007F4CE3 /* SceneDelegate.swift in Sources */,
 			);
@@ -376,6 +376,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9E1C639324A198B800565588 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9E1C639424A198B800565588 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 9E1C639424A198B800565588 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9E7AAB40249B250E007F4CE3 /* Project object */;
 }
