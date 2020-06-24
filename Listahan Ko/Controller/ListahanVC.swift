@@ -16,6 +16,7 @@ class ListahanVC: UITableViewController {
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -24,8 +25,6 @@ class ListahanVC: UITableViewController {
 //        searchBar.delegate = self
         
         loadItems()
-        
-        
     }
     
     
@@ -62,9 +61,6 @@ class ListahanVC: UITableViewController {
         
         // for item in array to toggle true or false the done property when tapped/selected by user
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        
-        print("\(String(describing: itemArray[indexPath.row].title!)) - \(itemArray[indexPath.row].done)")
-        
         
         // delete item
 //        context.delete(itemArray[indexPath.row])
@@ -107,7 +103,7 @@ class ListahanVC: UITableViewController {
         
     }
     
-    func saveItems() {        
+    func saveItems() {
         do {
             try context.save()
         } catch {
@@ -121,13 +117,14 @@ class ListahanVC: UITableViewController {
     
 //  with - external ... request - internal param ... = Item.fetchRequest() - default value
     
-    
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         do {
             itemArray =  try context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        
+        tableView.reloadData()
     }
     
 }
@@ -135,19 +132,21 @@ class ListahanVC: UITableViewController {
 //MARK: - Search Bar Methods / Delegate Methods
 
 extension ListahanVC: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // query items
         let request : NSFetchRequest<Item> = Item.fetchRequest()
-
+        print(searchBar.text!)
+        
         request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-//        request.predicate = predicate
-
+        
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//        request.sortDescriptors = [sortDescriptor]
-
+         
         loadItems(with: request)
+        
+        
     }
-
+    
+    // back to original state searchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             loadItems()
@@ -159,7 +158,5 @@ extension ListahanVC: UISearchBarDelegate {
         }
     }
     
+    
 }
-
-
-
