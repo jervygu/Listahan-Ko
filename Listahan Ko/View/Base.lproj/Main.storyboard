@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Listahan-->
+        <!--Items-->
         <scene sceneID="xdz-Lz-VGc">
             <objects>
                 <tableViewController id="Mvp-6T-yCe" customClass="ListahanVC" customModule="Listahan_Ko" customModuleProvider="target" sceneMemberID="viewController">
@@ -37,7 +37,7 @@
                             <outlet property="delegate" destination="Mvp-6T-yCe" id="JTM-h7-LJO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Listahan" id="A2I-Fh-KXG">
+                    <navigationItem key="navigationItem" title="Items" id="A2I-Fh-KXG">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="d20-7a-cQT">
                             <connections>
                                 <action selector="addButtonPressed:" destination="Mvp-6T-yCe" id="S8K-zn-wJM"/>
@@ -47,7 +47,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6H1-Nj-nuj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="-13"/>
+            <point key="canvasLocation" x="800" y="-13"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Drs-kl-qQH">
@@ -57,16 +57,53 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="NRh-86-jg3">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Mvp-6T-yCe" kind="relationship" relationship="rootViewController" id="wRy-O3-gKr"/>
+                        <segue destination="aVi-xH-geY" kind="relationship" relationship="rootViewController" id="15P-Fu-nqf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pa-4t-fJA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-175" y="-13"/>
+            <point key="canvasLocation" x="-649" y="-13"/>
+        </scene>
+        <!--Listahan-->
+        <scene sceneID="C7j-Wf-JFt">
+            <objects>
+                <tableViewController id="aVi-xH-geY" customClass="CategoryVC" customModule="Listahan_Ko" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PMx-MO-7qh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="SOb-np-x7A">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SOb-np-x7A" id="Ws0-7T-HXP">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aVi-xH-geY" id="eoU-2r-9Le"/>
+                            <outlet property="delegate" destination="aVi-xH-geY" id="tfz-8y-UCf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Listahan" id="e6M-rr-Z0a">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bQM-PB-ZqP">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="aVi-xH-geY" id="x2b-Yh-Qa2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="Mvp-6T-yCe" kind="show" identifier="goToItems" id="GU9-xi-b31"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ClU-wu-A6Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="86" y="-13"/>
         </scene>
     </scenes>
 </document>

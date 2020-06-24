@@ -13,6 +13,13 @@ class ListahanVC: UITableViewController {
     
     var itemArray = [Item]()
     
+//    for passing the category selected
+    var selectedCategory : Category? {
+        didSet{
+            loadItems()
+        }
+    }
+    
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -22,9 +29,12 @@ class ListahanVC: UITableViewController {
         // Do any additional setup after loading the view.
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-//        searchBar.delegate = self
         
-        loadItems()
+        if let safeSelectedCategory = selectedCategory {
+            navigationItem.title = safeSelectedCategory.name!
+        }
+        
+        
     }
     
     
@@ -77,16 +87,16 @@ class ListahanVC: UITableViewController {
         
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
 //            will happen once the user clicks Add item button on UIAlert
-            print("Success!")
-            print(textField.text!)
+            print("Success adding item \(String(describing: textField.text!))")
             
             let newItem = Item(context: self.context)
             newItem.title = textField.text!
             newItem.done = false
+            newItem.parentCategory = self.selectedCategory
             
             self.itemArray.append(newItem)
             
@@ -94,7 +104,7 @@ class ListahanVC: UITableViewController {
         }
         
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Type something here.."
+            alertTextField.placeholder = "Type new item here."
             textField = alertTextField
         }
         
@@ -111,17 +121,29 @@ class ListahanVC: UITableViewController {
         }
         
         // reload the data from array to screen
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
-    
     
 //  with - external ... request - internal param ... = Item.fetchRequest() - default value
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+        
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
+        
+//        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, predicate])
+        
+//        request.predicate = compoundPredicate
+        
         do {
             itemArray =  try context.fetch(request)
         } catch {
-            print("Error fetching data from context \(error)")
+            print("Error fetching items from context \(error)")
         }
         
         tableView.reloadData()
@@ -134,15 +156,15 @@ class ListahanVC: UITableViewController {
 extension ListahanVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
         let request : NSFetchRequest<Item> = Item.fetchRequest()
         print(searchBar.text!)
         
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
          
-        loadItems(with: request)
-        
+        loadItems(with: request, predicate: predicate)
         
     }
     
