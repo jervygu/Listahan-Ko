@@ -10,7 +10,7 @@
         <relationship name="parentCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="Item" positionX="94.55078125" positionY="3.1796875" width="128" height="88"/>
         <element name="Category" positionX="-106.34765625" positionY="-3.3828125" width="128" height="73"/>
+        <element name="Item" positionX="94.55078125" positionY="3.1796875" width="128" height="88"/>
     </elements>
 </model>

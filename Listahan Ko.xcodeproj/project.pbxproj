@@ -15,9 +15,11 @@
 		9E7AAB53249B250F007F4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB51249B250F007F4CE3 /* Main.storyboard */; };
 		9E7AAB55249B250F007F4CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB54249B250F007F4CE3 /* Assets.xcassets */; };
 		9E7AAB58249B250F007F4CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB56249B250F007F4CE3 /* LaunchScreen.storyboard */; };
+		C3FDF6EF16E858ADE90C197F /* Pods_Listahan_Ko.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD14514EF1023E170605ED71 /* Pods_Listahan_Ko.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		939FE2507DA78E4BD7726986 /* Pods-Listahan Ko.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listahan Ko.release.xcconfig"; path = "Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko.release.xcconfig"; sourceTree = "<group>"; };
 		9E1C639424A198B800565588 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		9E59179B24A3675B009BFA66 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
 		9E7AAB48249B250F007F4CE3 /* Listahan Ko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Listahan Ko.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +30,8 @@
 		9E7AAB54249B250F007F4CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E7AAB57249B250F007F4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E7AAB59249B250F007F4CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1EABD0FF3376FE692A57A01 /* Pods-Listahan Ko.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listahan Ko.debug.xcconfig"; path = "Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko.debug.xcconfig"; sourceTree = "<group>"; };
+		FD14514EF1023E170605ED71 /* Pods_Listahan_Ko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Listahan_Ko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +39,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3FDF6EF16E858ADE90C197F /* Pods_Listahan_Ko.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49232B896FD16CDA6E5FF3C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F1EABD0FF3376FE692A57A01 /* Pods-Listahan Ko.debug.xcconfig */,
+				939FE2507DA78E4BD7726986 /* Pods-Listahan Ko.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		79770BEA7DF37A1384ABCBC2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD14514EF1023E170605ED71 /* Pods_Listahan_Ko.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9E7AAB3F249B250E007F4CE3 = {
 			isa = PBXGroup;
 			children = (
 				9E7AAB4A249B250F007F4CE3 /* Listahan Ko */,
 				9E7AAB49249B250F007F4CE3 /* Products */,
+				49232B896FD16CDA6E5FF3C6 /* Pods */,
+				79770BEA7DF37A1384ABCBC2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E7AAB5C249B250F007F4CE3 /* Build configuration list for PBXNativeTarget "Listahan Ko" */;
 			buildPhases = (
+				FE9061770CC9500331791AE6 /* [CP] Check Pods Manifest.lock */,
 				9E7AAB44249B250F007F4CE3 /* Sources */,
 				9E7AAB45249B250F007F4CE3 /* Frameworks */,
 				9E7AAB46249B250F007F4CE3 /* Resources */,
+				1AE29293AFB479A834E219A8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,6 +197,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1AE29293AFB479A834E219A8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE9061770CC9500331791AE6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Listahan Ko-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9E7AAB44249B250F007F4CE3 /* Sources */ = {
@@ -322,6 +391,7 @@
 		};
 		9E7AAB5D249B250F007F4CE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1EABD0FF3376FE692A57A01 /* Pods-Listahan Ko.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -341,6 +411,7 @@
 		};
 		9E7AAB5E249B250F007F4CE3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 939FE2507DA78E4BD7726986 /* Pods-Listahan Ko.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
