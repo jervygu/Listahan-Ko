@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E1C639524A198B800565588 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C639324A198B800565588 /* DataModel.xcdatamodeld */; };
 		9E59179C24A3675B009BFA66 /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E59179B24A3675B009BFA66 /* CategoryVC.swift */; };
+		9E5AF3D524A4691D0002AB6C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5AF3D424A4691D0002AB6C /* Item.swift */; };
+		9E5AF3D724A469320002AB6C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5AF3D624A469320002AB6C /* Category.swift */; };
 		9E7AAB4C249B250F007F4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7AAB4B249B250F007F4CE3 /* AppDelegate.swift */; };
 		9E7AAB4E249B250F007F4CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7AAB4D249B250F007F4CE3 /* SceneDelegate.swift */; };
 		9E7AAB50249B250F007F4CE3 /* ListahanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7AAB4F249B250F007F4CE3 /* ListahanVC.swift */; };
@@ -20,8 +21,9 @@
 
 /* Begin PBXFileReference section */
 		939FE2507DA78E4BD7726986 /* Pods-Listahan Ko.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listahan Ko.release.xcconfig"; path = "Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko.release.xcconfig"; sourceTree = "<group>"; };
-		9E1C639424A198B800565588 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		9E59179B24A3675B009BFA66 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
+		9E5AF3D424A4691D0002AB6C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		9E5AF3D624A469320002AB6C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9E7AAB48249B250F007F4CE3 /* Listahan Ko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Listahan Ko.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7AAB4B249B250F007F4CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E7AAB4D249B250F007F4CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +54,6 @@
 				F1EABD0FF3376FE692A57A01 /* Pods-Listahan Ko.debug.xcconfig */,
 				939FE2507DA78E4BD7726986 /* Pods-Listahan Ko.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -99,7 +100,8 @@
 		9EA53C7C249CA2460030EC1C /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				9E1C639324A198B800565588 /* DataModel.xcdatamodeld */,
+				9E5AF3D624A469320002AB6C /* Category.swift */,
+				9E5AF3D424A4691D0002AB6C /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -247,9 +249,10 @@
 			files = (
 				9E59179C24A3675B009BFA66 /* CategoryVC.swift in Sources */,
 				9E7AAB50249B250F007F4CE3 /* ListahanVC.swift in Sources */,
-				9E1C639524A198B800565588 /* DataModel.xcdatamodeld in Sources */,
 				9E7AAB4C249B250F007F4CE3 /* AppDelegate.swift in Sources */,
+				9E5AF3D524A4691D0002AB6C /* Item.swift in Sources */,
 				9E7AAB4E249B250F007F4CE3 /* SceneDelegate.swift in Sources */,
+				9E5AF3D724A469320002AB6C /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +400,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7ZBHT89JPN;
 				INFOPLIST_FILE = "Listahan Ko/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,7 +420,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7ZBHT89JPN;
 				INFOPLIST_FILE = "Listahan Ko/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -451,19 +454,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		9E1C639324A198B800565588 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				9E1C639424A198B800565588 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 9E1C639424A198B800565588 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 9E7AAB40249B250E007F4CE3 /* Project object */;
 }
