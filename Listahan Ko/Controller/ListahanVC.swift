@@ -49,7 +49,6 @@ class ListahanVC: UITableViewController {
         
         if let item = listahanItems?[indexPath.row] {
             cell.textLabel?.text = item.title
-            // ternary operator, shorthand for above statements
             // value = condition ? valueIfTrue : valueIfFalse
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
@@ -64,21 +63,40 @@ class ListahanVC: UITableViewController {
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // for edit
-        //        itemArray[indexPath.row].setValue("Completed!", forKey: "title")
         
+        //////////////////////////////////////////////////////////////////////
+        // delete item using realm,
+        
+//        if let item = listahanItems?[indexPath.row] {
+//            do {
+//                try realm.write {
+//                    realm.delete(item)
+//                }
+//            } catch {
+//                print("Error saving done status \(error)")
+//            }
+//        }
+        
+        //////////////////////////////////////////////////////////////////////
+        
+        
+        // Update done or not done using realm
+        
+        // toggle item.done true or false
+        if let item = listahanItems?[indexPath.row] {
+            do {
+                try realm.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Error saving done status \(error)")
+            }
+        }
+        
+        tableView.reloadData()
         
         // for item in array to toggle true or false the done property when tapped/selected by user
 //        listahanItems[indexPath.row].done = !listahanItems[indexPath.row].done
-        
-        
-        
-        
-//        print("\(String(describing: itemArray[indexPath.row].parentCategory!.name!)) - \(String(describing: itemArray[indexPath.row].title!)) - \(itemArray[indexPath.row].done)")
-        
-        // delete item
-        //        context.delete(itemArray[indexPath.row])
-        //        itemArray.remove(at: indexPath.row)
         
         
         
@@ -98,13 +116,15 @@ class ListahanVC: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //            will happen once the user clicks Add item button on UIAlert
             print("Success adding item \(String(describing: textField.text!))")
-            
+                        
             if let currentCategory = self.selectedCategory {
                 do {
                     try self.realm.write {
                         let newItem = Item()
                         newItem.title = textField.text!
-                        newItem.done = false
+                        //newItem.done doesnt need to specify anymore because it has already have default Bool value
+                        newItem.dateCreated = Date()
+                        
                         currentCategory.items.append(newItem)
                     }
                 } catch {
@@ -126,17 +146,6 @@ class ListahanVC: UITableViewController {
         
     }
     
-//    func saveItems() {
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error saving context \(error)")
-//        }
-//
-//        // reload the data from array to screen
-//        tableView.reloadData()
-//    }
-    
     //  with - external ... request - internal param ... = Item.fetchRequest() - default value
     
     func loadItems() {
@@ -150,10 +159,15 @@ class ListahanVC: UITableViewController {
 
 //MARK: - Search Bar Methods / Delegate Methods
 
-//extension ListahanVC: UISearchBarDelegate {
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//
+extension ListahanVC: UISearchBarDelegate {
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        // filter items and sort it in date of creation
+        listahanItems = listahanItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: false)
+        
+        
+// used in core data
 //        let request : NSFetchRequest<Item> = Item.fetchRequest()
 //        print(searchBar.text!)
 //
@@ -161,21 +175,25 @@ class ListahanVC: UITableViewController {
 //
 //        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
 //
+        
+        // no need for call loadItems() bacause it already loaded from selectedCategory
 //        loadItems(with: request, predicate: predicate)
-//
-//    }
-//
-//    // back to original state searchBar
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchBar.text?.count == 0 {
-//            loadItems()
-//
-//            DispatchQueue.main.async {
-//                // go to original state before the searchBar activated
-//                searchBar.resignFirstResponder()
-//            }
-//        }
-//    }
-//
-//
-//}
+        
+        tableView.reloadData()
+
+    }
+
+    // back to original state searchBar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+
+            DispatchQueue.main.async {
+                // go to original state before the searchBar activated
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+
+
+}

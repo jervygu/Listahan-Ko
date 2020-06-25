@@ -11,7 +11,7 @@ import RealmSwift
 
 class CategoryVC: UITableViewController {
     
-    var categoryArray : Results<Category>?
+    var listahanCategories : Results<Category>?
     
     let realm = try! Realm()
     
@@ -30,14 +30,14 @@ class CategoryVC: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Nil coalescing operator
         // if != nil return count, if == nil return 1
-        return categoryArray?.count ?? 1
+        return listahanCategories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
-        cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No Categories added yet"
+        cell.textLabel?.text = listahanCategories?[indexPath.row].name ?? "No Categories added yet"
         
         return cell
     }
@@ -79,7 +79,7 @@ class CategoryVC: UITableViewController {
         let destinationVC = segue.destination as! ListahanVC
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedCategory = categoryArray?[indexPath.row] 
+            destinationVC.selectedCategory = listahanCategories?[indexPath.row] 
         }
     }
     
@@ -100,7 +100,7 @@ class CategoryVC: UITableViewController {
     //  with - external ... request - internal param ... = Item.fetchRequest() - default value
     
     func loadCategories() {
-        categoryArray = realm.objects(Category.self)
+        listahanCategories = realm.objects(Category.self)
         tableView.reloadData()
         
     }
