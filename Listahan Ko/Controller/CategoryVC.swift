@@ -11,6 +11,7 @@ import RealmSwift
 
 class CategoryVC: UITableViewController {
     
+    // Results<> is collection type
     var listahanCategories : Results<Category>?
     
     let realm = try! Realm()
@@ -18,8 +19,7 @@ class CategoryVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
+//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadCategories()
         
     }
@@ -34,16 +34,14 @@ class CategoryVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+         
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
-        
         cell.textLabel?.text = listahanCategories?[indexPath.row].name ?? "No Categories added yet"
         
         return cell
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Add new category", message: "", preferredStyle: .alert)
@@ -56,7 +54,6 @@ class CategoryVC: UITableViewController {
             newCategory.name = textField.text!
             
             self.save(category: newCategory)
-            
         }
         
         alert.addTextField { (alertTextField) in
@@ -72,7 +69,6 @@ class CategoryVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -93,7 +89,6 @@ class CategoryVC: UITableViewController {
         } catch {
             print("Error saving context \(error)")
         }
-        
         tableView.reloadData()
     }
     
@@ -102,7 +97,6 @@ class CategoryVC: UITableViewController {
     func loadCategories() {
         listahanCategories = realm.objects(Category.self)
         tableView.reloadData()
-        
     }
     
 }

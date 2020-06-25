@@ -21,18 +21,15 @@ class ListahanVC: UITableViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         if let safeSelectedCategory = selectedCategory {
             navigationItem.title = safeSelectedCategory.name
         }
-        
-        
     }
     
     
@@ -55,7 +52,6 @@ class ListahanVC: UITableViewController {
             cell.textLabel?.text = "No items added."
         }
         
-        
         return cell
     }
     
@@ -67,15 +63,15 @@ class ListahanVC: UITableViewController {
         //////////////////////////////////////////////////////////////////////
         // delete item using realm,
         
-//        if let item = listahanItems?[indexPath.row] {
-//            do {
-//                try realm.write {
-//                    realm.delete(item)
-//                }
-//            } catch {
-//                print("Error saving done status \(error)")
-//            }
-//        }
+        //        if let item = listahanItems?[indexPath.row] {
+        //            do {
+        //                try realm.write {
+        //                    realm.delete(item)
+        //                }
+        //            } catch {
+        //                print("Error saving done status \(error)")
+        //            }
+        //        }
         
         //////////////////////////////////////////////////////////////////////
         
@@ -96,11 +92,9 @@ class ListahanVC: UITableViewController {
         tableView.reloadData()
         
         // for item in array to toggle true or false the done property when tapped/selected by user
-//        listahanItems[indexPath.row].done = !listahanItems[indexPath.row].done
+        //        listahanItems[indexPath.row].done = !listahanItems[indexPath.row].done
         
-        
-        
-//        saveItems()
+        //        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -116,7 +110,7 @@ class ListahanVC: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //            will happen once the user clicks Add item button on UIAlert
             print("Success adding item \(String(describing: textField.text!))")
-                        
+            
             if let currentCategory = self.selectedCategory {
                 do {
                     try self.realm.write {
@@ -149,9 +143,7 @@ class ListahanVC: UITableViewController {
     //  with - external ... request - internal param ... = Item.fetchRequest() - default value
     
     func loadItems() {
-        
         listahanItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
-        
         tableView.reloadData()
     }
     
@@ -160,40 +152,27 @@ class ListahanVC: UITableViewController {
 //MARK: - Search Bar Methods / Delegate Methods
 
 extension ListahanVC: UISearchBarDelegate {
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         // filter items and sort it in date of creation
         listahanItems = listahanItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: false)
         
-        
-// used in core data
-//        let request : NSFetchRequest<Item> = Item.fetchRequest()
-//        print(searchBar.text!)
-//
-//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-//
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//
-        
-        // no need for call loadItems() bacause it already loaded from selectedCategory
-//        loadItems(with: request, predicate: predicate)
-        
         tableView.reloadData()
-
+        
     }
-
+    
     // back to original state searchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             loadItems()
-
+            
             DispatchQueue.main.async {
                 // go to original state before the searchBar activated
                 searchBar.resignFirstResponder()
             }
         }
     }
-
-
+    
+    
 }
