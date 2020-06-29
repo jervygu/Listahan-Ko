@@ -22,7 +22,7 @@ class CategoryVC: SwipeTableVC {
         
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadCategories()
-        tableView.separatorStyle = .none
+//        tableView.separatorStyle = .none
         
     }
     
@@ -38,9 +38,19 @@ class CategoryVC: SwipeTableVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = super.tableView(tableView, cellForRowAt: indexPath)
         
-        cell.textLabel?.text = listahanCategories?[indexPath.row].name ?? "No Categories added yet"
+        let category = listahanCategories?[indexPath.row]
         
-        cell.backgroundColor = UIColor.randomFlat()
+        let selectedColor = category?.categoryColour  ?? "1D9BF6"
+        
+        cell.textLabel?.text = category?.name ?? "No Categories added yet"
+        
+        cell.backgroundColor = UIColor(hexString: selectedColor)
+
+        // optional chaining
+        if let colour = UIColor(hexString: selectedColor){
+            cell.backgroundColor = colour
+            cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+        }
         
         return cell
     }
@@ -56,6 +66,8 @@ class CategoryVC: SwipeTableVC {
             
             let newCategory = Category()
             newCategory.name = textField.text!
+            newCategory.categoryColour = UIColor.randomFlat().hexValue()
+            
             
             self.save(category: newCategory)
         }

@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ListahanVC: SwipeTableVC {
     
@@ -46,6 +47,17 @@ class ListahanVC: SwipeTableVC {
 
         if let item = listahanItems?[indexPath.row] {
             cell.textLabel?.text = item.title
+            
+            // currently on row 5
+            // theres a total of 10 times in listahanItems
+            let selectedColor = selectedCategory?.categoryColour
+            
+            // optional chaining
+            if let colour = UIColor(hexString: selectedColor!)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(listahanItems!.count)) {
+                cell.backgroundColor = colour
+                cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+            }
+                 
             // value = condition ? valueIfTrue : valueIfFalse
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
