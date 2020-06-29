@@ -16,6 +16,7 @@
 		9E7AAB53249B250F007F4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB51249B250F007F4CE3 /* Main.storyboard */; };
 		9E7AAB55249B250F007F4CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB54249B250F007F4CE3 /* Assets.xcassets */; };
 		9E7AAB58249B250F007F4CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7AAB56249B250F007F4CE3 /* LaunchScreen.storyboard */; };
+		9EEAEC7324A98038005F4088 /* SwipeTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEAEC7224A98038005F4088 /* SwipeTableVC.swift */; };
 		C3FDF6EF16E858ADE90C197F /* Pods_Listahan_Ko.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD14514EF1023E170605ED71 /* Pods_Listahan_Ko.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		9E7AAB54249B250F007F4CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E7AAB57249B250F007F4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E7AAB59249B250F007F4CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EEAEC7224A98038005F4088 /* SwipeTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableVC.swift; sourceTree = "<group>"; };
 		F1EABD0FF3376FE692A57A01 /* Pods-Listahan Ko.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listahan Ko.debug.xcconfig"; path = "Target Support Files/Pods-Listahan Ko/Pods-Listahan Ko.debug.xcconfig"; sourceTree = "<group>"; };
 		FD14514EF1023E170605ED71 /* Pods_Listahan_Ko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Listahan_Ko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 			children = (
 				9E59179B24A3675B009BFA66 /* CategoryVC.swift */,
 				9E7AAB4F249B250F007F4CE3 /* ListahanVC.swift */,
+				9EEAEC7224A98038005F4088 /* SwipeTableVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EEAEC7324A98038005F4088 /* SwipeTableVC.swift in Sources */,
 				9E59179C24A3675B009BFA66 /* CategoryVC.swift in Sources */,
 				9E7AAB50249B250F007F4CE3 /* ListahanVC.swift in Sources */,
 				9E7AAB4C249B250F007F4CE3 /* AppDelegate.swift in Sources */,
@@ -400,7 +404,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7ZBHT89JPN;
 				INFOPLIST_FILE = "Listahan Ko/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -420,7 +424,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7ZBHT89JPN;
 				INFOPLIST_FILE = "Listahan Ko/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

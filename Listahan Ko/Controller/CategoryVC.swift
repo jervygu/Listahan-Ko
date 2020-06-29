@@ -8,9 +8,9 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
+import ChameleonFramework
 
-class CategoryVC: UITableViewController {
+class CategoryVC: SwipeTableVC {
     
     // Results<> is collection type
     var listahanCategories : Results<Category>?
@@ -22,8 +22,7 @@ class CategoryVC: UITableViewController {
         
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadCategories()
-        
-//        tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
         
     }
     
@@ -35,20 +34,13 @@ class CategoryVC: UITableViewController {
         // if != nil return count, if == nil return 1
         return listahanCategories?.count ?? 1
     }
-    // usage of swipecellkit
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! SwipeTableViewCell
-//        cell.delegate = self
-//        return cell
-//    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! SwipeTableViewCell
+        let cell  = super.tableView(tableView, cellForRowAt: indexPath)
         
         cell.textLabel?.text = listahanCategories?[indexPath.row].name ?? "No Categories added yet"
         
-        cell.delegate = self
+        cell.backgroundColor = UIColor.randomFlat()
         
         return cell
     }
@@ -74,6 +66,7 @@ class CategoryVC: UITableViewController {
         }
         
         alert.addAction(action)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -110,45 +103,20 @@ class CategoryVC: UITableViewController {
         listahanCategories = realm.objects(Category.self)
         tableView.reloadData()
     }
-}
-
-//MARK: - SwipeTableViewCellDelegate Methods
-
-extension CategoryVC: SwipeTableViewCellDelegate {
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        
+    //MARK: - delete data from swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        // update model
 
-        let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
-            // handle action by updating model with deletion
-            print("Category deleted, \(String(describing: self.listahanCategories?[indexPath.row].name))")
-            
-          
-            if let categoryForDeletion = self.listahanCategories?[indexPath.row] {
-                do {
-                    try self.realm.write {
-                        self.realm.delete(categoryForDeletion)
-                    }
-                } catch {
-                    print("Error deleting catogory, \(error)")
+        if let categoryForDeletion = self.listahanCategories?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(categoryForDeletion)
                 }
-                
-//                tableView.reloadData()
+            } catch {
+                print("Error deleting catogory, \(error)")
             }
-            
         }
-
-        // customize the action appearance
-        deleteAction.image = UIImage(named: "delete-icon")
-
-        return [deleteAction]
     }
-    
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        options.expansionStyle = .destructive
-        return options
-    }
-    
 }

@@ -8,10 +8,8 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
 
-
-class ListahanVC: UITableViewController {
+class ListahanVC: SwipeTableVC {
     
     var listahanItems : Results<Item>?
     let realm = try! Realm()
@@ -42,10 +40,10 @@ class ListahanVC: UITableViewController {
         return listahanItems?.count ?? 1
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listahanCell", for: indexPath)
-        
+        let cell  = super.tableView(tableView, cellForRowAt: indexPath)
+
         if let item = listahanItems?[indexPath.row] {
             cell.textLabel?.text = item.title
             // value = condition ? valueIfTrue : valueIfFalse
@@ -138,6 +136,7 @@ class ListahanVC: UITableViewController {
         }
         
         alert.addAction(action)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
         
     }
@@ -147,6 +146,20 @@ class ListahanVC: UITableViewController {
     func loadItems() {
         listahanItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        // update model
+        
+        if let itemForDeletion = listahanItems?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(itemForDeletion)
+                }
+            } catch {
+                print("Error deleting item, \(error)")
+            }
+        }
     }
     
 }
