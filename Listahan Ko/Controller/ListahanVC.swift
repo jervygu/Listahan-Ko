@@ -12,6 +12,8 @@ import ChameleonFramework
 
 class ListahanVC: SwipeTableVC {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var listahanItems : Results<Item>?
     let realm = try! Realm()
     
@@ -28,9 +30,34 @@ class ListahanVC: SwipeTableVC {
         
         //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        if let safeSelectedCategory = selectedCategory {
-            navigationItem.title = safeSelectedCategory.name
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.name
+        guard let hexColour = selectedCategory?.categoryColour else {fatalError()}
+        updateNavBar(withHexCode: hexColour)
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        updateNavBar(withHexCode: "1D9BF6")
+    }
+    
+    //MARK: - nav Bar setup code methods
+    
+    func updateNavBar(withHexCode hexColour: String) {
+        guard let navbar = navigationController?.navigationBar else {
+            fatalError("Navigation controller does not exist.")
         }
+        
+        guard let navBarColour = UIColor(hexString: hexColour) else { fatalError() }
+        navbar.barTintColor = navBarColour
+        navbar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+        
+        navbar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColour, returnFlat: true)]
+        searchBar.barTintColor = navBarColour
+        
     }
     
     

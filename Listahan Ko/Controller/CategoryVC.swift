@@ -38,18 +38,15 @@ class CategoryVC: SwipeTableVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = super.tableView(tableView, cellForRowAt: indexPath)
         
-        let category = listahanCategories?[indexPath.row]
-        
-        let selectedColor = category?.categoryColour  ?? "1D9BF6"
-        
-        cell.textLabel?.text = category?.name ?? "No Categories added yet"
-        
-        cell.backgroundColor = UIColor(hexString: selectedColor)
-
-        // optional chaining
-        if let colour = UIColor(hexString: selectedColor){
-            cell.backgroundColor = colour
-            cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+        if let category = listahanCategories?[indexPath.row] {
+            
+            cell.textLabel?.text = category.name
+            
+            guard let categoryColour = UIColor(hexString: category.categoryColour) else {fatalError()}
+            
+            cell.backgroundColor = categoryColour
+            
+            cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
         }
         
         return cell
